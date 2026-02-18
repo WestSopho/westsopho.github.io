@@ -1,0 +1,39 @@
+baseURL = "https://westsopho.github.io/"
+languageCode = "en-us"
+title = "Ricardo Velasco"
+theme = "hugo-texify3"
+
+[params]
+title = "Ricardo Velasco"
+description = "Software Engineering & Architecture | AI/ML Research"
+customCSS = ["css/custom.css"]
+
+[markup]
+defaultMarkdownHandler = "goldmark"
+
+  [markup.goldmark.renderer]
+  unsafe = true
+
+  [markup.highlight]
+  noClasses = false
+
+  [markup.tableOfContents]
+  endLevel = 6
+  ordered = false
+  startLevel = 2
+
+[taxonomies]
+tags = "tags"
+categories = "categories"
+
+[[menu.main]]
+identifier = "posts"
+name = "Blog"
+url = "/posts/"
+weight = 1
+
+[[menu.main]]
+identifier = "github"
+name = "GitHub"
+url = "https://github.com/WestSopho"
+weight = 2
