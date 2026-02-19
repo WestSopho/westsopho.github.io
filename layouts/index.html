@@ -1,0 +1,28 @@
+{{ define "head" }}
+{{ $options := dict "transpiler" "dartsass" "targetPath" "css/index.css" }}
+{{ with resources.Get "sass/layouts/index.scss" | toCSS $options | postCSS | minify | fingerprint }}
+  <link rel="stylesheet" href="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" crossorigin="anonymous">
+{{ end }}
+{{ end }}
+
+{{ define "main" }}
+<main class="paper">
+  <div class="paper-intro">
+    {{ with .Site.Params.avatar }}
+    <img class="paper-avatar" src="{{ . | absURL }}" alt="{{ $.Site.Title }}">
+    {{ end }}
+    <p class="paper-affiliation">{{ .Site.Params.description }}</p>
+    {{ with .Site.Params.epigraph }}
+    <p class="paper-epigraph">{{ . }}</p>
+    {{ end }}
+  </div>
+
+  <div id="content" class="paper-body content">
+    {{ with .Site.GetPage "_index.md" }}
+      {{ .Content }}
+    {{ end }}
+  </div>
+
+  <p class="paper-updated">Last updated {{ now.Format "January 2006" }}</p>
+</main>
+{{ end }}

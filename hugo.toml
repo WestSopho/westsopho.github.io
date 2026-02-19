@@ -6,6 +6,12 @@ theme = "hugo-texify3"
 [params]
 title = "Ricardo Velasco"
 description = "Software Engineering & Architecture | AI/ML Research"
+avatar = "images/avatar.jpg"
+dateFormat = "2 January 2006"
+showReadingTime = true
+showWordCount = true
+toc = true
+enableDuckDuckGoSearchBox = true
 customCSS = ["css/custom.css"]
   [params.buymeacoffee]
   code = ""

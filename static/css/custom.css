@@ -1,0 +1,462 @@
+/* ============================================================
+   custom.css — westsopho.github.io
+   Additive overrides on top of hugo-texify3 / Gruvbox.
+   No theme files were modified.
+   ============================================================ */
+
+
+/* ------------------------------------------------------------
+   1. System dark mode preference
+   Prevents flash of light mode on dark-preference systems.
+   Colors are defined in assets/sass/gruvbox.scss (project-level
+   override of the theme file).
+   ------------------------------------------------------------ */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg_h: #151516;
+    --bg:   #1b1b1d;
+    --bg_s: #242426;
+    --bg1:  #2e2e30;
+    --bg2:  #414143;
+    --bg3:  #5a5a5c;
+    --bg4:  #737375;
+
+    --fg:   #e4e0da;
+    --fg1:  #d0ccc6;
+    --fg2:  #b9b5af;
+    --fg3:  #9f9b95;
+    --fg4:  #86827c;
+
+    --red:    #fb4934;
+    --green:  #b8bb26;
+    --yellow: #f0b630;
+    --blue:   #83a598;
+    --purple: #d3869b;
+    --aqua:   #8ec07c;
+    --orange: #fe8019;
+    --gray:   #928374;
+
+    --yellow-dim: #d49a18;
+    --blue-dim:   #458588;
+  }
+}
+
+
+/* ------------------------------------------------------------
+   2. Base typography
+   ------------------------------------------------------------ */
+html {
+  scroll-behavior: smooth;
+}
+
+#wrapper {
+  line-height: 1.65;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  font-feature-settings: "kern" 1, "liga" 1;
+
+  /* Cap layout width — 70vw at 1920px = 1344px, too wide for prose */
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+/* ------------------------------------------------------------
+   3. Amber / ochre accent — replace default Gruvbox blue links
+   ------------------------------------------------------------ */
+a:link {
+  color: var(--yellow);
+}
+
+a:hover,
+a:visited {
+  color: var(--yellow-dim);
+}
+
+::selection {
+  background-color: var(--yellow);
+  color: var(--bg_h);
+}
+
+/* Nav bar hover underline — override theme's --fg1 to amber */
+#header nav .nav-bar-item a::after {
+  background-color: var(--yellow) !important;
+}
+
+/* Sidebar link hover */
+.sidebar ul li a:hover {
+  color: var(--yellow) !important;
+  background-color: var(--bg_s);
+}
+
+
+/* ------------------------------------------------------------
+   4. Site title — small-caps (LaTeX title page aesthetic)
+   ------------------------------------------------------------ */
+#header h1 a {
+  font-variant: small-caps;
+  letter-spacing: 0.04em;
+  color: var(--fg1);
+}
+
+#header h1 a:hover,
+#header h1 a:visited {
+  color: var(--fg1);
+}
+
+
+/* ------------------------------------------------------------
+   5. Double-rule header separator (LaTeX chapter rule motif)
+   ------------------------------------------------------------ */
+hr.head-rule {
+  border: none;
+  height: 4px;
+  background: linear-gradient(
+    to bottom,
+    var(--fg4) 0px,   var(--fg4) 1px,
+    transparent 1px,  transparent 2px,
+    var(--fg4) 2px,   var(--fg4) 3px
+  );
+  margin-top: 0.5rem;
+  margin-bottom: 0;
+}
+
+
+/* ------------------------------------------------------------
+   6. Content heading — §-numbered section dividers
+   ------------------------------------------------------------ */
+.paper-body {
+  counter-reset: section;
+}
+
+.paper-body h2 {
+  border-bottom: 1px solid var(--bg2);
+  padding-bottom: 0.2em;
+}
+
+.paper-body h2::before {
+  counter-increment: section;
+  content: "§" counter(section) "  ";
+  color: var(--yellow);
+}
+
+.content h2 {
+  border-bottom: 1px solid var(--bg2);
+  padding-bottom: 0.2em;
+}
+
+
+/* ------------------------------------------------------------
+   7. KaTeX — nudge equation size to sit naturally in prose
+   ------------------------------------------------------------ */
+.content .katex {
+  font-size: 105% !important;
+}
+
+
+/* ------------------------------------------------------------
+   8. Homepage — paper structure
+   ------------------------------------------------------------ */
+.paper {
+  max-width: 42em;
+  margin: 0 auto;
+  padding-top: 1rem;
+}
+
+.paper-intro {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.paper-avatar {
+  width: 220px;
+  height: auto;
+  object-fit: contain;
+  border-radius: 2px;
+  border: 3px solid var(--bg3);
+  padding: 6px;
+  background-color: var(--bg_s);
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.08),
+    0 4px 12px rgba(0, 0, 0, 0.04);
+  margin-bottom: 1rem;
+  transition: box-shadow 0.3s, border-color 0.3s;
+}
+
+.paper-avatar:hover {
+  border-color: var(--yellow);
+  box-shadow:
+    0 2px 6px rgba(0, 0, 0, 0.12),
+    0 8px 20px rgba(0, 0, 0, 0.06);
+}
+
+.paper-affiliation {
+  text-align: center;
+  font-style: italic;
+  color: var(--fg3);
+  margin-bottom: 1.5rem;
+  font-size: 1.05rem;
+  letter-spacing: 0.01em;
+}
+
+/* Three-dot separator — replaces hard <hr> lines */
+.paper-body hr {
+  border: none;
+  height: auto;
+  background: none;
+  text-align: center;
+  margin: 2rem 0;
+}
+
+.paper-body hr::after {
+  content: "·   ·   ·";
+  color: var(--fg4);
+  font-size: 1.2rem;
+  letter-spacing: 0.3em;
+}
+
+/* Epigraph — personal voice above the content */
+.paper-epigraph {
+  text-align: center;
+  font-style: italic;
+  color: var(--fg3);
+  margin-bottom: 1.5rem;
+  font-size: 0.95rem;
+  padding: 0 2rem;
+}
+
+/* Bullet lists — custom ▸ marker */
+.paper-body ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.paper-body ul li {
+  padding-left: 1.2em;
+  position: relative;
+  margin-bottom: 0.3rem;
+}
+
+.paper-body ul li::before {
+  content: "▸";
+  color: var(--yellow);
+  position: absolute;
+  left: 0;
+}
+
+/* Definition lists — custom ▸ bullet on dt */
+.paper-body dl {
+  margin-bottom: 1rem;
+}
+
+.paper-body dt {
+  font-weight: bold;
+  color: var(--fg1);
+  margin-top: 0.8rem;
+}
+
+.paper-body dt::before {
+  content: "▸ ";
+  color: var(--yellow);
+}
+
+.paper-body dd {
+  margin-left: 1.5rem;
+  margin-bottom: 0.3rem;
+  color: var(--fg2);
+}
+
+/* Recent posts list */
+.paper-recent {
+  margin-top: 0.5rem;
+}
+
+.paper-recent ul {
+  list-style: none;
+  padding: 0;
+}
+
+.paper-recent li {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 0.3rem 0;
+  border-bottom: 1px dotted var(--bg2);
+}
+
+.paper-recent li:last-child {
+  border-bottom: none;
+}
+
+.paper-recent time {
+  color: var(--fg4);
+  font-size: 0.85rem;
+  margin-left: 1rem;
+  white-space: nowrap;
+}
+
+
+/* Last updated timestamp */
+.paper-updated {
+  text-align: center;
+  color: var(--fg4);
+  font-size: 0.8rem;
+  font-style: italic;
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px dotted var(--bg2);
+}
+
+
+/* ------------------------------------------------------------
+   9. Focus rings — keyboard accessibility, amber accent
+   ------------------------------------------------------------ */
+:focus-visible {
+  outline: 2px solid var(--yellow);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+
+/* ------------------------------------------------------------
+   9. Print styles
+   Clean output for fellowship reviewers who print pages.
+   ------------------------------------------------------------ */
+@media print {
+  #header nav,
+  #dark-mode-toggle,
+  .dark-mode-toggle,
+  .sidebar,
+  #footer,
+  #sharingbuttons,
+  #back-to-top {
+    display: none !important;
+  }
+
+  #wrapper {
+    max-width: 100%;
+    padding: 0;
+  }
+
+  #main {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  body,
+  #wrapper {
+    background: #fff !important;
+    color: #000 !important;
+  }
+
+  a {
+    color: #000 !important;
+    text-decoration: underline;
+  }
+
+  /* Show full URLs after links */
+  .content a::after {
+    content: " (" attr(href) ")";
+    font-size: 0.78em;
+    color: #444;
+  }
+
+  /* Suppress URL display for footnote refs and anchors */
+  .content a.footnote-ref::after,
+  .content a[href^="#"]::after {
+    content: none;
+  }
+}
+
+
+/* ------------------------------------------------------------
+   11. Blog — archive and post styles
+   ------------------------------------------------------------ */
+
+/* Search box — spacing and amber focus */
+#searchbox {
+  margin-top: 1.5rem;
+}
+
+#searchbox #ddgSearch input[type="text"]:focus {
+  outline: 1px solid var(--yellow);
+  border-color: var(--yellow);
+}
+
+#searchbox #ddgSearch button svg {
+  fill: var(--fg3);
+  transition: fill 0.3s;
+}
+
+#searchbox #ddgSearch button:hover svg {
+  fill: var(--yellow);
+}
+
+/* Archive timeline — amber left border */
+.archive .post-group > ul {
+  border-left-color: var(--yellow) !important;
+}
+
+/* Archive link colors */
+.archive .post-group a.link {
+  color: var(--fg1);
+}
+
+.archive .post-group a.link:hover {
+  color: var(--yellow);
+}
+
+/* Post tags — amber tint */
+a.tag {
+  color: var(--yellow) !important;
+  border: 1px solid var(--bg2);
+}
+
+a.tag:hover {
+  background-color: var(--yellow) !important;
+  color: var(--bg_h) !important;
+}
+
+/* Post metadata — softer color */
+.post-heading .publish-metadata {
+  color: var(--fg3) !important;
+}
+
+.post-heading .publish-metadata svg {
+  stroke: var(--fg4);
+}
+
+/* Back to Top button — amber hover */
+#back-to-top {
+  background-color: var(--bg_s);
+  color: var(--fg3);
+  border: 1px solid var(--bg2);
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+#back-to-top:hover {
+  background-color: var(--yellow);
+  color: var(--bg_h);
+  border-color: var(--yellow);
+}
+
+/* Paginator prev/next — amber */
+.paginator a.link {
+  color: var(--fg3);
+  transition: color 0.3s;
+}
+
+.paginator a.link:hover {
+  color: var(--yellow);
+}
+
+/* Table of contents — amber toggle */
+details summary b {
+  color: var(--fg2);
+  transition: color 0.3s;
+}
+
+details summary:hover b {
+  color: var(--yellow);
+}
